@@ -1,17 +1,17 @@
 package edu.ucalgary.oop;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DisasterVictim {
     private String firstName;
     private String lastName;
     private String dateOfBirth;
     private static int counter = 0;
     private final int ASSIGNED_SOCIAL_ID;
-    private FamilyRelation[] familyConnections;
-    private MedicalRecord[] medicalRecords;
-    private Supply[] personalBelongings;
-    private int familyConnectionsCount = 0;
-    private int medicalRecordsCount = 0;
-    private int personalBelongingsCount = 0;
+    private List<FamilyRelation> familyConnections;
+    private List<MedicalRecord> medicalRecords;
+    private List<Supply> personalBelongings;
     private final String ENTRY_DATE;
     private String gender;
     private String comments;
@@ -20,9 +20,9 @@ public class DisasterVictim {
         this.firstName = firstName;
         this.ENTRY_DATE = ENTRY_DATE;
         this.ASSIGNED_SOCIAL_ID = generateSocialID();
-        this.familyConnections = new FamilyRelation[10]; // Initial size
-        this.medicalRecords = new MedicalRecord[10]; // Initial size
-        this.personalBelongings = new Supply[10]; // Initial size
+        this.familyConnections = new ArrayList<FamilyRelation>();
+        this.medicalRecords = new ArrayList<MedicalRecord>();
+        this.personalBelongings = new ArrayList<Supply>();
     }
 
     public DisasterVictim(String firstName, String ENTRY_DATE, String dateOfBirth) {
@@ -31,7 +31,7 @@ public class DisasterVictim {
     }
 
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     public void setFirstName(String firstName) {
@@ -39,7 +39,7 @@ public class DisasterVictim {
     }
 
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     public void setLastName(String lastName) {
@@ -47,7 +47,7 @@ public class DisasterVictim {
     }
 
     public String getDateOfBirth() {
-        return dateOfBirth;
+        return this.dateOfBirth;
     }
 
     public void setDateOfBirth(String dateOfBirth) {
@@ -61,100 +61,56 @@ public class DisasterVictim {
         return ASSIGNED_SOCIAL_ID;
     }
 
-    public FamilyRelation[] getFamilyConnections() {
-        FamilyRelation[] result = new FamilyRelation[familyConnectionsCount];
-        System.arraycopy(familyConnections, 0, result, 0, familyConnectionsCount);
-        return result;
+    public List<FamilyRelation> getFamilyConnections() {
+        return this.familyConnections;
     }
 
-    public void setFamilyConnections(FamilyRelation[] connections) {
-        this.familyConnections = new FamilyRelation[connections.length];
-        this.familyConnectionsCount = connections.length;
-        System.arraycopy(connections, 0, this.familyConnections, 0, connections.length);
+    public void setFamilyConnections(List<FamilyRelation> connections) {
+        this.familyConnections = new ArrayList<FamilyRelation>();
     }
 
-    public MedicalRecord[] getMedicalRecords() {
-        MedicalRecord[] result = new MedicalRecord[medicalRecordsCount];
-        System.arraycopy(medicalRecords, 0, result, 0, medicalRecordsCount);
-        return result;
+    public List<MedicalRecord> getMedicalRecords() {
+        return this.medicalRecords;
     }
 
-    public void setMedicalRecords(MedicalRecord[] records) {
-        this.medicalRecords = new MedicalRecord[records.length];
-        this.medicalRecordsCount = records.length;
-        System.arraycopy(records, 0, this.medicalRecords, 0, records.length);
+    public void setMedicalRecords(List<MedicalRecord> records) {
+        this.medicalRecords = new ArrayList<MedicalRecord>(records);
     }
 
-    public Supply[] getPersonalBelongings() {
-        Supply[] result = new Supply[personalBelongingsCount];
-        System.arraycopy(personalBelongings, 0, result, 0, personalBelongingsCount);
-        return result;
+    public List<Supply> getPersonalBelongings() {
+        return this.personalBelongings;
     }
 
-    public void setPersonalBelongings(Supply[] belongings) {
-        this.personalBelongings = new Supply[belongings.length];
-        this.personalBelongingsCount = belongings.length;
-        System.arraycopy(belongings, 0, this.personalBelongings, 0, belongings.length);
+    public void setPersonalBelongings(List<Supply> belongings) {
+        this.personalBelongings = new ArrayList<Supply>(belongings);
     }
 
     public void addPersonalBelonging(Supply supply) {
-        if (personalBelongingsCount == personalBelongings.length) {
-            // Resize the array
-            Supply[] newArray = new Supply[personalBelongings.length * 2];
-            System.arraycopy(personalBelongings, 0, newArray, 0, personalBelongings.length);
-            personalBelongings = newArray;
-        }
-        personalBelongings[personalBelongingsCount++] = supply;
+        this.personalBelongings.add(supply);
     }
 
     public void removePersonalBelonging(Supply unwantedSupply) {
-        for (int i = 0; i < personalBelongingsCount; i++) {
-            if (personalBelongings[i].equals(unwantedSupply)) {
-                // Shift elements to the left
-                System.arraycopy(personalBelongings, i + 1, personalBelongings, i, personalBelongingsCount - i - 1);
-                personalBelongingsCount--;
-                break;
-            }
-        }
+        this.personalBelongings.remove(unwantedSupply);
     }
 
     public void removeFamilyConnection(FamilyRelation exRelation) {
-        for (int i = 0; i < familyConnectionsCount; i++) {
-            if (familyConnections[i].equals(exRelation)) {
-                // Shift elements to the left
-                System.arraycopy(familyConnections, i + 1, familyConnections, i, familyConnectionsCount - i - 1);
-                familyConnectionsCount--;
-                break;
-            }
-        }
+        this.familyConnections.remove(exRelation);
     }
 
     public void addFamilyConnection(FamilyRelation record) {
-        if (familyConnectionsCount == familyConnections.length) {
-            // Resize the array
-            FamilyRelation[] newArray = new FamilyRelation[familyConnections.length * 2];
-            System.arraycopy(familyConnections, 0, newArray, 0, familyConnections.length);
-            familyConnections = newArray;
-        }
-        familyConnections[familyConnectionsCount++] = record;
+        this.familyConnections.add(record);
     }
 
     public void addMedicalRecord(MedicalRecord record) {
-        if (medicalRecordsCount == medicalRecords.length) {
-            // Resize the array
-            MedicalRecord[] newArray = new MedicalRecord[medicalRecords.length * 2];
-            System.arraycopy(medicalRecords, 0, newArray, 0, medicalRecords.length);
-            medicalRecords = newArray;
-        }
-        medicalRecords[medicalRecordsCount++] = record;
+        this.medicalRecords.add(record);
     }
 
     public String getEntryDate() {
-        return ENTRY_DATE;
+        return this.ENTRY_DATE;
     }
 
     public String getComments() {
-        return comments;
+        return this.comments;
     }
 
     public void setComments(String comments) {
@@ -162,7 +118,7 @@ public class DisasterVictim {
     }
 
     public String getGender() {
-        return gender;
+        return this.gender;
     }
 
     public void setGender(String gender) {
