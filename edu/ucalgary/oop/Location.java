@@ -32,8 +32,8 @@ public class Location {
         this.address = address;
     }
 
-    public List<DisasterVictim> getOccupants() {
-        return this.occupants;
+    public ArrayList<DisasterVictim> getOccupants() {
+        return new ArrayList<DisasterVictim>(this.occupants);
     }
 
     public void setOccupants(List<DisasterVictim> newOccupants) {
@@ -48,8 +48,8 @@ public class Location {
         this.occupants.remove(occupant);
     }
 
-    public List<Supply> getSupplies() {
-        return this.supplies;
+    public ArrayList<Supply> getSupplies() {
+        return new ArrayList<Supply>(this.supplies);
     }
 
     public void setSupplies(List<Supply> newSupplies) {

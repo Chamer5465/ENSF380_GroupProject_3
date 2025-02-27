@@ -1,6 +1,7 @@
 package edu.ucalgary.oop;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DisasterVictim {
@@ -17,6 +18,9 @@ public class DisasterVictim {
     private String comments;
 
     public DisasterVictim(String firstName, String ENTRY_DATE) {
+        if(!isValidDateFormat(ENTRY_DATE)) {
+            throw new IllegalArgumentException("Invalid date format.");
+        }
         this.firstName = firstName;
         this.ENTRY_DATE = ENTRY_DATE;
         this.ASSIGNED_SOCIAL_ID = generateSocialID();
@@ -26,8 +30,15 @@ public class DisasterVictim {
     }
 
     public DisasterVictim(String firstName, String ENTRY_DATE, String dateOfBirth) {
-        this(firstName, ENTRY_DATE);
-        this.dateOfBirth = dateOfBirth;
+        if(!isValidDateFormat(ENTRY_DATE)) {
+            throw new IllegalArgumentException("Invalid date format.");
+        } else if(convertDateStringToInt(dateOfBirth) > convertDateStringToInt(ENTRY_DATE)) {
+            throw new IllegalArgumentException("Invalid entry date.");
+        }
+        this.firstName = firstName;
+        this.ENTRY_DATE = ENTRY_DATE;
+        this.setDateOfBirth(dateOfBirth);
+        this.ASSIGNED_SOCIAL_ID = generateSocialID();
     }
 
     public String getFirstName() {
@@ -61,28 +72,28 @@ public class DisasterVictim {
         return ASSIGNED_SOCIAL_ID;
     }
 
-    public List<FamilyRelation> getFamilyConnections() {
-        return this.familyConnections;
+    public FamilyRelation[] getFamilyConnections() {
+        return this.familyConnections.toArray(new FamilyRelation[0]);
     }
 
-    public void setFamilyConnections(List<FamilyRelation> connections) {
-        this.familyConnections = new ArrayList<FamilyRelation>();
+    public void setFamilyConnections(FamilyRelation[] connections) {
+        this.familyConnections = new ArrayList<FamilyRelation>(Arrays.asList(connections));
     }
 
-    public List<MedicalRecord> getMedicalRecords() {
-        return this.medicalRecords;
+    public MedicalRecord[] getMedicalRecords() {
+        return this.medicalRecords.toArray(new MedicalRecord[0]);
     }
 
-    public void setMedicalRecords(List<MedicalRecord> records) {
-        this.medicalRecords = new ArrayList<MedicalRecord>(records);
+    public void setMedicalRecords(MedicalRecord[] records) {
+        this.medicalRecords = new ArrayList<MedicalRecord>(Arrays.asList(records));
     }
 
-    public List<Supply> getPersonalBelongings() {
-        return this.personalBelongings;
+    public Supply[] getPersonalBelongings() {
+        return this.personalBelongings.toArray(new Supply[0]);
     }
 
-    public void setPersonalBelongings(List<Supply> belongings) {
-        this.personalBelongings = new ArrayList<Supply>(belongings);
+    public void setPersonalBelongings(Supply[] belongings) {
+        this.personalBelongings = new ArrayList<Supply>(Arrays.asList(belongings));
     }
 
     public void addPersonalBelonging(Supply supply) {
@@ -131,5 +142,10 @@ public class DisasterVictim {
 
     private boolean isValidDateFormat(String date) {
         return date.matches("\\d{4}-\\d{2}-\\d{2}");
+    }
+    
+    private int convertDateStringToInt(String dateStr) {
+        String convertedString = dateStr.replaceAll("-", "");
+        return Integer.valueOf(convertedString);
     }
 }
