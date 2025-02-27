@@ -1,7 +1,5 @@
 package edu.ucalgary.oop;
 
-import java.util.regex.Pattern;
-
 public class MedicalRecord {
     Location location;
     String treatmentDetails;
@@ -34,12 +32,10 @@ public class MedicalRecord {
     }
 
     public void setDateOfTreatment(String dateOfTreatment) {
+        
         this.dateOfTreatment = dateOfTreatment;
     }
     private boolean isValidDateFormat(String date) {
-        Pattern datePattern = Pattern.compile("^\\d\\d/\\d\\d/\\d\\d\\d\\d$");
-        Matcher dateMatcher = datePattern.matcher(date);
-        return dateMatcher.find();
-
+        return date.matches("\\d{4}-\\d{2}-\\d{2}");
     }
 }

@@ -1,10 +1,10 @@
 package edu.ucalgary.oop;
 
 public class Inquirer {
-    private String FIRST_NAME;
-    private String LAST_NAME;
-    private String INFO;
-    private String SERVICES_PHONE;
+    private final String FIRST_NAME;
+    private final String LAST_NAME;
+    private final String INFO;
+    private final String SERVICES_PHONE;
 
     public Inquirer(String firstName, String lastName, String phone, String info) {
         this.FIRST_NAME = firstName;
