@@ -33,7 +33,7 @@ public class MedicalRecord {
 
     public void setDateOfTreatment(String dateOfTreatment) {
         if (!isValidDateFormat(dateOfTreatment)) {
-            throw new IllegalArgumentException("Invalid date formal.");
+            throw new IllegalArgumentException("Invalid date format.");
         }
         this.dateOfTreatment = dateOfTreatment;
     }
