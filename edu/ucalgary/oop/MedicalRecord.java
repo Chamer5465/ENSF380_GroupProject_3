@@ -14,7 +14,7 @@ public class MedicalRecord {
     }
 
     public Location getLocation() {
-        return location;
+        return this.location;
     }
 
     public void setLocation(Location location) {
@@ -22,7 +22,7 @@ public class MedicalRecord {
     }
 
     public String getTreatmentDetails() {
-        return treatmentDetails;
+        return this.treatmentDetails;
     }
 
     public void setTreatmentDetails(String treatmentDetails) {
@@ -30,7 +30,7 @@ public class MedicalRecord {
     }
 
     public String getDateOfTreatment() {
-        return dateOfTreatment;
+        return this.dateOfTreatment;
     }
 
     public void setDateOfTreatment(String dateOfTreatment) {
